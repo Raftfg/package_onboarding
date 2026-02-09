@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 
 class OnboardingController extends Controller
 {
+    public function welcome() { return view('onboarding::onboarding.welcome'); }
     public function showInitialForm() { return view('onboarding::onboarding.initial-form'); }
 
     public function storeInitialData(Request $request)
