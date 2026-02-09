@@ -1,16 +1,15 @@
-# Guide d'Installation : Raftfg Onboarding Package
+# Guide d'Installation Complet - Package Onboarding Raftfg
 
-Ce guide vous accompagne dans l'installation et la configuration du package `raftfg/package_onboarding` dans votre projet Laravel.
+Ce guide explique comment installer et configurer le package `raftfg/package_onboarding` dans un nouveau projet Laravel.
 
-## Prérequis
-- Laravel 10, 11 ou 12
-- PHP 8.1 ou supérieur
-- Une base de données configurée (MySQL, PostgreSQL, etc.)
+## 1. Prérequis
+- Laravel 11 ou 12
+- MySQL / PostgreSQL
+- Composer
 
----
+## 2. Installation du Package
 
-## Étape 1 : Ajouter le dépôt GitHub
-Étant donné que le package est hébergé sur un dépôt privé ou spécifique, ajoutez-le à votre fichier `composer.json` :
+Ajoutez d'abord le dépôt GitHub à votre `composer.json` :
 
 ```json
 "repositories": [
@@ -18,47 +17,45 @@ Ce guide vous accompagne dans l'installation et la configuration du package `raf
         "type": "vcs",
         "url": "https://github.com/Raftfg/package_onboarding.git"
     }
-]
+],
 ```
 
-## Étape 2 : Installer le package
-Exécutez la commande suivante dans votre terminal :
-
+Puis installez le package :
 ```bash
-composer require raftfg/package_onboarding
+composer require raftfg/package_onboarding:dev-main
 ```
 
-## Étape 3 : Publier les ressources
-Publiez le fichier de configuration et les migrations du package :
+## 3. Configuration
 
+Publiez les fichiers de configuration, migrations et vues :
 ```bash
-php artisan vendor:publish --provider="Raftfg\OnboardingPackage\OnboardingServiceProvider"
+php artisan vendor:publish --tag=onboarding-config
+php artisan vendor:publish --tag=onboarding-migrations
 ```
 
-Cette commande créera :
-1. `config/onboarding.php` : Pour personnaliser les préfixes d'URL, les domaines, etc.
-2. Des fichiers dans `database/migrations/` : Pour créer les tables nécessaires.
-
-## Étape 4 : Exécuter les migrations
-Créez les tables de base de données requises pour le fonctionnement du package :
-
+Lancez les migrations :
 ```bash
 php artisan migrate
 ```
 
-## Étape 5 : Configuration (Optionnel)
-Ouvrez le fichier `config/onboarding.php` pour ajuster les paramètres selon vos besoins :
-- `api_prefix` : Définit le préfixe des routes API.
-- `brand_domain` : Votre domaine de base pour les sous-domaines.
-- `rate_limits` : Pour ajuster la sécurité contre les abus.
+## 4. Configuration des Emails
 
-## Étape 6 : Accès à l'interface
-Une fois configuré, vous pouvez accéder à l'interface d'onboarding par défaut via :
-`http://votre-projet.local/onboarding/start`
+Dans votre fichier `.env`, configurez votre driver mail (ex: Mailtrap ou Log pour le test) :
+```env
+MAIL_MAILER=log
+ONBOARDING_BRAND_NAME="Votre Marque"
+ONBOARDING_BRAND_DOMAIN="votre-domaine.com"
+```
 
----
+## 5. Utilisation
 
-## Utilisation de l'API (Authentification)
-Pour utiliser les routes API, vous devez inclure l'en-tête suivant :
-- **ID** : `X-Master-Key`
-- **Valeur** : La clé définie dans votre table `applications` (que vous devez créer initialement).
+### Routes Web incluses :
+- `/onboarding` : Page d'accueil/bienvenue.
+- `/onboarding/start` : Formulaire de création.
+- `/dashboard` : Interface de gestion (nécessite l'authentification Laravel standard).
+
+### Dashboard
+Pour accéder au dashboard, assurez-vous que votre projet Laravel possède un système d'authentification (`php artisan make:auth` ou Laravel Breeze). Le dashboard du package s'intégrera automatiquement.
+
+## 6. Personnalisation des Vues
+Si vous souhaitez modifier le design, les vues sont publiées dans `resources/views/vendor/onboarding`. Vous pouvez les éditer directement pour les adapter à votre charte graphique.

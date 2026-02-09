@@ -62,4 +62,9 @@ class OnboardingController extends Controller
             'organization_name' => $data['organization_name'] ?? ''
         ]); 
     }
+
+    public function showActivation($token)
+    {
+        return view('onboarding::onboarding.activation', ['token' => $token]);
+    }
 }
