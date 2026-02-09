@@ -47,4 +47,9 @@ return [
         'provider' => env('ONBOARDING_SSL_PROVIDER', 'stub'),
         'auto_configure' => env('ONBOARDING_SSL_AUTO_CONFIGURE', false),
     ],
+    'activation' => [
+        'token_expires_days' => env('ONBOARDING_ACTIVATION_TOKEN_EXPIRES_DAYS', 7),
+    ],
+    'user_model' => env('ONBOARDING_USER_MODEL', 'App\\Models\\User'),
+    'session_model' => env('ONBOARDING_SESSION_MODEL', 'App\\Models\\OnboardingSession'),
 ];
