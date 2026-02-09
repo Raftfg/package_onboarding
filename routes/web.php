@@ -14,6 +14,7 @@ Route::middleware(['web'])->group(function () {
     
     // Activation
     Route::get('/onboarding/activate/{token}', [OnboardingController::class, 'showActivation'])->name('onboarding.activation');
+    Route::post('/onboarding/activate', [OnboardingController::class, 'activate'])->name('onboarding.activate');
     
     // Dashboard (protégé par auth)
     Route::middleware(['auth'])->group(function () {

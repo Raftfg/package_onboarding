@@ -49,7 +49,34 @@ return [
     ],
     'activation' => [
         'token_expires_days' => env('ONBOARDING_ACTIVATION_TOKEN_EXPIRES_DAYS', 7),
+        'user_model' => env('ONBOARDING_USER_MODEL', 'App\Models\User'),
+        'session_model' => env('ONBOARDING_SESSION_MODEL', 'Raftfg\OnboardingPackage\Models\OnboardingSession'),
     ],
-    'user_model' => env('ONBOARDING_USER_MODEL', 'App\\Models\\User'),
-    'session_model' => env('ONBOARDING_SESSION_MODEL', 'App\\Models\\OnboardingSession'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Tenant Database Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Configuration for tenant database creation and management.
+    |
+    */
+    'tenant_database' => [
+        'prefix' => env('ONBOARDING_TENANT_DB_PREFIX', 'tenant_'),
+        'auto_migrate' => env('ONBOARDING_AUTO_MIGRATE_TENANTS', true),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Email Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Configuration for activation emails.
+    |
+    */
+    'email' => [
+        'send_activation' => env('ONBOARDING_SEND_ACTIVATION_EMAIL', true),
+        'from_address' => env('ONBOARDING_MAIL_FROM', env('MAIL_FROM_ADDRESS')),
+        'from_name' => env('ONBOARDING_MAIL_FROM_NAME', env('MAIL_FROM_NAME')),
+    ],
 ];
