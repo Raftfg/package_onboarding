@@ -17,8 +17,5 @@
         Démarrer
     </a>
     
-    <a href="{{ route('login') }}" class="btn" style="background: white; color: #00286f; border: 2px solid #00286f;">
-        Se connecter
-    </a>
 </div>
 @endsection

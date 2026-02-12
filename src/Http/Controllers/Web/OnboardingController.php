@@ -132,8 +132,7 @@ class OnboardingController extends Controller
             $activation = $this->activationService->getActivationByToken($token);
             
             if ($activation && $activation->isActivated()) {
-                return redirect()->route('login')
-                    ->with('info', 'Ce compte a déjà été activé. Veuillez vous connecter.');
+                return redirect('/')->with('info', 'Ce compte a déjà été activé.');
             }
             
             if ($activation && $activation->isExpired()) {
